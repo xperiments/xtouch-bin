@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>xtouch Save SSID & PWD to SD Card</title>
+    <title>[ xtouch ] Save SSID & PWD to SD Card</title>
     <style>
       body,
       code {
@@ -76,13 +76,16 @@
   </head>
   <body>
     <form id="ssidPwdForm">
-      <h1>xtouch</h1>
+      <img
+        width="200"
+        src="data:image/png;base64,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"
+      />
       <h2>wifi.json easy setup</h2>
       <p>
         This page allows you to enter your WiFi network's SSID and password to
         generate the <code>wifi.json</code> configuration file. This file is
-        essential for your xtouch Screen to connect to your WiFi network during
-        installation.
+        essential for your <code>xtouch</code> Screen to connect to your WiFi
+        network during installation.
       </p>
       <label for="ssid">Enter SSID</label>
       <input
@@ -153,10 +156,10 @@
       <p>
         <strong>* Note:</strong> Adjusting the "colboot" value is recommended
         specifically in situations where you encounter issues during the printer
-        power-on process, leading to a reboot of the xtouch screen because the
-        printer is not ready. The "colboot" value allows you to define the
-        number of seconds the system should wait for initialization to complete
-        after a cold boot.
+        power-on process, leading to a reboot of the <code>xtouch</code> screen
+        because the printer is not ready. The "colboot" value allows you to
+        define the number of seconds the system should wait for initialization
+        to complete after a cold boot.
       </p>
       <input type="submit" value="Generate wifi.json file" />
     </form>
