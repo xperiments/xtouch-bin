@@ -1,5 +1,6 @@
 {
   "name": "xtouch",
+  "new_install_prompt_erase": false,
   "version": "0.9.16",
   "builds": [
     {
