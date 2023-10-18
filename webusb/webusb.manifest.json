@@ -1,6 +1,7 @@
 {
   "name": "xtouch",
   "new_install_prompt_erase": false,
+  "funding_url": "https://ko-fi.com/xperiments",
   "version": "0.9.16",
   "builds": [
     {
