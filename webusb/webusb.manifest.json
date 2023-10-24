@@ -1,14 +1,12 @@
 {
   "name": "xtouch",
-  "new_install_prompt_erase": true,
-  "funding_url": "https://ko-fi.com/xperiments",
-  "version": "0.9.16",
+  "version": "0.9.24",
   "builds": [
     {
       "chipFamily": "ESP32",
       "parts": [
         {
-          "path": "xtouch.web.0.9.16.bin",
+          "path": "xtouch.web.0.9.24.bin",
           "offset": 0
         }
       ]
