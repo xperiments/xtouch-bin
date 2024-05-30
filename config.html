@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>[ xtouch ] Save SSID & PWD to SD Card</title>
+    <style>
+      body,
+      code {
+        font-family: Arial, sans-serif;
+        background-color: white;
+        color: black;
+        text-align: center;
+      }
+
+      code {
+        color: green;
+      }
+
+      h1,
+      h2 {
+        color: green;
+      }
+
+      form {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: white;
+        border-radius: 10px;
+        text-align: left;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        color: black;
+      }
+
+      input[type="text"],
+      input[type="password"] {
+        width: 100%;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        text-indent: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+      }
+
+      input[type="submit"] {
+        background-color: green;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 6px;
+        width: 100%;
+      }
+
+      input[type="submit"]:hover {
+        background-color: darkgreen;
+      }
+
+      a {
+        display: none;
+        color: green;
+        text-decoration: none;
+        margin-top: 10px;
+      }
+
+      p {
+        text-align: left;
+      }
+
+      details {
+        user-select: none;
+        margin-bottom: 32px;
+      }
+
+      details > summary span.icon {
+        width: 24px;
+        height: 24px;
+        transition: all 0.3s;
+        margin-left: auto;
+      }
+
+      details[open] summary span.icon {
+        transform: rotate(180deg);
+      }
+
+      summary {
+        display: flex;
+        cursor: pointer;
+      }
+
+      summary::-webkit-details-marker {
+        display: none;
+      }
+
+      fieldset {
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+
+      select {
+        width: 100%;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        text-indent: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+      }
+    </style>
+  </head>
+  <body>
+    <form id="ssidPwdForm">
+      <img
+        width="200"
+        src="data:image/png;base64,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"
+      />
+      <h2>config.json easy setup</h2>
+      <p>
+        This page allows you to enter your WiFi network's credentials &
+        BambuLabs Credentials to generate the
+        <code>settings.json</code> configuration file. This file is essential
+        for your <code>xtouch</code> Screen to connect to the Printer/s
+      </p>
+      <h2>WIFI</h2>
+      <fieldset>
+        <label for="ssid">Enter SSID</label>
+        <input
+          type="text"
+          id="ssid"
+          name="ssid"
+          required="required"
+          placeholder="SSID"
+        />
+        <label for="pwd"
+          >Enter SSID Password <small>(*Min 8 chars)</small></label
+        >
+        <input
+          type="text"
+          id="pwd"
+          name="pwd"
+          required="required"
+          pattern="^.{8,}$"
+          placeholder="Password"
+        />
+        <label for="pwd">Timeout*</label>
+        <div>
+          <input
+            type="range"
+            name="timeout"
+            id="timeout"
+            min="3000"
+            max="30000"
+            value="3000"
+            step="1000"
+            oninput="this.form.timeoutValue.value=(this.value+'ms')"
+            style="width: 410px"
+          />
+          <input
+            type="text"
+            name="timeoutValue"
+            maxlength="5"
+            readonly=""
+            value="3000ms"
+            style="display: inline-block; width: 70px"
+          />
+        </div>
+        <details>
+          <summary>
+            <strong>* Note:</strong>
+            <span class="icon">👇</span>
+          </summary>
+          <p>
+            Modifying the WiFi Timeout is recommended only if you encounter
+            Wi-Fi connection problems. Leave as is if you don't experience
+            connectivity issues.
+          </p>
+        </details>
+        <label for="pwd">ColdBoot*</label>
+        <div>
+          <input
+            type="range"
+            name="coldboot"
+            id="coldboot"
+            min="5000"
+            max="30000"
+            value="5000"
+            step="1000"
+            oninput="this.form.coldbootValue.value=(this.value+'ms')"
+            style="width: 410px"
+          />
+          <input
+            type="text"
+            name="coldbootValue"
+            maxlength="5"
+            readonly=""
+            value="5000ms"
+            style="display: inline-block; width: 70px"
+          />
+        </div>
+        <details>
+          <summary>
+            <strong>* Note:</strong>
+            <span class="icon">👇</span>
+          </summary>
+          <p>
+            Adjusting the "colboot" value is recommended specifically in
+            situations where you encounter issues during the printer power-on
+            process, leading to a reboot of the
+            <code>xtouch</code> screen because the printer is not ready. The
+            "colboot" value allows you to define the number of seconds the
+            system should wait for initialization to complete after a cold boot.
+          </p>
+        </details>
+      </fieldset>
+      <h2>BambuLabs Login Credentials</h2>
+      <fieldset>
+        <label for="ssid">Region</label>
+        <select id="cloud-region" name="region">
+          <option value="World">Global</option>
+          <option value="China">China</option>
+        </select>
+        <label for="ssid">Email</label>
+        <input
+          type="text"
+          id="cloud-email"
+          name="ssid"
+          required="required"
+          placeholder="Email for your Bambulab account"
+        />
+        <label for="ssid">Password</label>
+        <input
+          type="text"
+          id="cloud-password"
+          name="ssid"
+          required="required"
+          placeholder="Password for your Bambulab account"
+        />
+      </fieldset>
+      <input type="submit" value="Generate config.json file" />
+    </form>
+
+    <a id="downloadLink"></a>
+
+    <script>
+      document
+        .getElementById("ssidPwdForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const ssid = document.getElementById("ssid").value;
+          const pwd = document.getElementById("pwd").value;
+          const timeout = parseInt(
+            document.getElementById("timeout").value,
+            10
+          );
+          const coldboot = parseInt(
+            document.getElementById("coldboot").value,
+            10
+          );
+
+          const jsonData = {
+            ssid: btoa(ssid),
+            pwd: btoa(pwd),
+            ...(timeout > 3000 ? { timeout } : {}),
+            ...(coldboot > 5000 ? { coldboot } : {}),
+            "cloud-email": btoa(document.getElementById("cloud-email").value),
+            "cloud-password": btoa(
+              document.getElementById("cloud-password").value
+            ),
+            "cloud-region": document.getElementById("cloud-region").value,
+          };
+
+          const jsonString = JSON.stringify(jsonData, null, 2);
+          console.log(jsonString);
+
+          const blob = new Blob([jsonString], { type: "application/json" });
+
+          const downloadLink = document.getElementById("downloadLink");
+          downloadLink.href = URL.createObjectURL(blob);
+          downloadLink.download = "config.json";
+          downloadLink.style.display = "hidden";
+          downloadLink.click();
+        });
+    </script>
+  </body>
+</html>
