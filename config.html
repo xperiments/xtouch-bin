@@ -266,6 +266,21 @@
     <a id="downloadLink"></a>
 
     <script>
+
+      function toUnicode(str) {
+          return str.split('').map(char => {
+              const charCode = char.charCodeAt(0);
+              if (charCode > 127) {
+                  let code = charCode.toString(16).toUpperCase();
+                  while (code.length < 4) {
+                      code = '0' + code;
+                  }
+                  return '\\u' + code;
+              }
+              return char;
+          }).join('');
+      }
+
       document
         .getElementById("ssidPwdForm")
         .addEventListener("submit", function (e) {
@@ -289,13 +304,12 @@
             ...(coldboot > 5000 ? { coldboot } : {}),
             "cloud-email": btoa(document.getElementById("cloud-email").value),
             "cloud-password": btoa(
-              document.getElementById("cloud-password").value
+              toUnicode(document.getElementById("cloud-password").value)
             ),
             "cloud-region": document.getElementById("cloud-region").value,
           };
 
           const jsonString = JSON.stringify(jsonData, null, 2);
-          console.log(jsonString);
 
           const blob = new Blob([jsonString], { type: "application/json" });
 
