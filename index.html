@@ -155,7 +155,50 @@
         <esp-web-install-button
           manifest="webusb/webusb.manifest.json"
         ></esp-web-install-button>
+        <p>
+          <a href="https://ko-fi.com/I3I8PSAYU" rel="nofollow"
+            ><img
+              src="https://camo.githubusercontent.com/70e2ef5e0263b261f9a2a314bb1d6919d1d43292eed117fe8fc766a68c7d96ea/68747470733a2f2f6b6f2d66692e636f6d2f696d672f676974687562627574746f6e5f736d2e737667"
+              alt="ko-fi"
+              data-canonical-src="https://ko-fi.com/img/githubbutton_sm.svg"
+              style="max-width: 100%"
+          /></a>
+        </p>
       </div>
     </div>
+
+    <script>
+      let interval;
+      function handleElementInsertion(mutationsList, observer) {
+        for (const mutation of mutationsList) {
+          if (mutation.type === "childList") {
+            for (const node of mutation.addedNodes) {
+              if (node.nodeType === Node.ELEMENT_NODE) {
+                if (node.tagName === "EWT-INSTALL-DIALOG") {
+                  node.addEventListener("closed", (e) => {
+                    console.log("Install window was closed");
+                  });
+                  interval = setInterval(() => {
+                    if (
+                      node.___installState &&
+                      node.___installState.state === "finished"
+                    ) {
+                      clearInterval(interval);
+                      setTimeout(() => {
+                        window.open("https://bambula.com", "_blank");
+                      }, 3000);
+                    }
+                  }, 500);
+                }
+              }
+            }
+          }
+        }
+      }
+      new MutationObserver(handleElementInsertion).observe(document.body, {
+        childList: true,
+        subtree: true,
+      });
+    </script>
   </body>
 </html>
