@@ -169,8 +169,8 @@
         <option value="C12">P1S</option>
         <option value="3DPrinter-X1">X1</option>
         <option value="3DPrinter-X1-Carbon">X1C</option>
-        <option value="C11">A1</option>
-        <option value="C11">A1Mini</option>
+        <option value="N2S">A1</option>
+        <option value="N1">A1Mini</option>
       </select>
 
       <input type="submit" value="Generate xtouch.json file" />
@@ -232,7 +232,7 @@
             jsonData.mqtt = {
               host: bblIp,
               accessCode: accessCode,
-              serialSumber: serialNumber,
+              serialNumber: serialNumber,
               printerModel: printerType,
             };
           } else {
